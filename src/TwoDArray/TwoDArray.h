@@ -15,7 +15,7 @@ class TwoDArray {
   void insert(int r, int c, int val);
   int access(int r, int c);
   void remove(int r, int c);
-  void(print);
+  void print();
   int getNumRows();
   int getNumCols();
 };

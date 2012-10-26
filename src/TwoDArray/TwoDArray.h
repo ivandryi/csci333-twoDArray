@@ -1,8 +1,8 @@
 #ifndef __TWODARRAY_H__
 #define __TWODARRAY_H__
 
-class TwoDArray {
 
+class TwoDArray {
  private:
   int** theArray;
   int row;

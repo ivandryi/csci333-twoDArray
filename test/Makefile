@@ -19,8 +19,9 @@ $(GTEST_MAINA): $(GTEST)/src/*.cc $(GTEST)/src/*.h
 	cd $(GTEST)/make; make
 
 clean:
-	rm -f queue_test
+	rm -f array_test
 	rm -f $(GTEST_MAINA)
 	cd $(GTEST)/make; $(MAKE) clean
+	rm -f *~
 
 

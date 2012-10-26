@@ -2,14 +2,15 @@
 #include <iostream>
 #include <assert.h>
 
-TwoDArray::TwoDArray(int r, int c, int def){
+template <typename T>
+TwoDArray<T>::TwoDArray(int r, int c, T def){
   assert (r > 0 && c > 0);
   defaultValue = def;
   row = r;
   column = c;
-  theArray = new int* [row];
+  theArray = new T* [row];
   for (int i = 0; i < row; i++) {
-    theArray[i] = new int[column];
+    theArray[i] = new T[column];
   }
   for (int i = 0; i < row; i++) {
     for (int j = 0; j < column; j++)
@@ -17,29 +18,34 @@ TwoDArray::TwoDArray(int r, int c, int def){
   }
 }
 
-TwoDArray::~TwoDArray() {
+template <typename T>
+TwoDArray<T>::~TwoDArray() {
   for (int i = 0; i < row; i++) {
     delete [] theArray[i];
   }
   delete [] theArray;
 }
 
-void TwoDArray::insert(int r , int c, int val) {
+template <typename T>
+void TwoDArray<T>::insert(int r , int c, T val) {
   assert (r > 0 && c > 0 && r <= row && c <= column);
   theArray[r - 1][c - 1] = val;
 }
 
-int TwoDArray::access(int r, int c) {
+template <typename T>
+T TwoDArray<T>::access(int r, int c) {
   assert (r > 0 && c > 0 && r <= row && c <= column);
   return theArray[r - 1][c - 1];
 }
 
-void TwoDArray::remove(int r, int c) {
+template <typename T>
+void TwoDArray<T>::remove(int r, int c) {
   assert(r > 0 && c > 0 && r <=row && c <=column);
   theArray[r - 1][c - 1] = defaultValue;
 }
 
-void TwoDArray::print() {
+template <typename T>
+void TwoDArray<T>::print() {
   for (int i = 0; i < row; i++) {
     std::cout << "\n" << std::endl;
     for (int j = 0; j < column; j++)
@@ -47,10 +53,15 @@ void TwoDArray::print() {
   }
 }
 
-int TwoDArray::getNumRows() {
+template <typename T>
+int TwoDArray<T>::getNumRows() {
   return row;
 }
 
-int TwoDArray::getNumCols() {
+template <typename T>
+int TwoDArray<T>::getNumCols() {
   return column;
 }
+
+template class TwoDArray<int>;
+template class TwoDArray<double>;

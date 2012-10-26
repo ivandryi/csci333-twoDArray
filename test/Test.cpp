@@ -4,8 +4,8 @@
 #include "../src/STwoDArray/STwoDArray.h"
 
 TEST(TwoDArray, CreateDestroy) {
-  TwoDArray* array1 = new TwoDArray (5, 3, 0);
-  //TwoDArray* array2 = new TwoDArray(-5, 4, 78); // inserting out of the range aborts the program
+  TwoDArray<int>* array1 = new TwoDArray<int>(5, 3, 0);
+  //TwoDArray<int>* array2 = new TwoDArray<int>(-5, 4, 78); // inserting out of the range aborts the program
   delete array1;
   //delete array2;
 }
@@ -20,7 +20,7 @@ TEST (STwoDArray, CreateDestroy) {
 }
 
 TEST(TwoDArray, InsertAccess) {
-  TwoDArray* array1 = new TwoDArray(5, 3, 0);
+  TwoDArray<int>* array1 = new TwoDArray<int>(5, 3, 0);
   array1->insert(5, 3, 45);
   //array1->insert(6, 1, 67); //inserting out of the range aborts the program
   // array1->insert(-7, 4, 90);
@@ -60,7 +60,7 @@ TEST(STwoDArray, InserAccess) {
 }
 
 TEST(TwoDArray, Delete) {
-  TwoDArray* array = new TwoDArray(3, 3, 0);
+  TwoDArray<int>* array = new TwoDArray<int>(3, 3, 0);
   array->insert(1, 1, 4);
   array->insert(1, 3, 5);
   array->remove(1, 1);
@@ -90,7 +90,7 @@ TEST(STwoDArray, Delete) {
 }
 
 TEST(TwoDArray, ColRows) {
-  TwoDArray* array = new TwoDArray(3, 4, 0);
+  TwoDArray<int>* array = new TwoDArray<int>(3, 4, 0);
   EXPECT_EQ(3, array->getNumRows());
   EXPECT_EQ(4, array->getNumCols());
  }

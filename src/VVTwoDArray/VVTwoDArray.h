@@ -3,17 +3,18 @@
 
 #include <vector>
 
+template <typename T>
 class VVTwoDArray {
  private:
-  std::vector<std::vector<int> > theArray;
+  std::vector<std::vector<T> > theArray;
   int row;
   int column;
-  int defaultValue;
+  T defaultValue;
  public:
-  VVTwoDArray(int r, int c, int def);
-  ~VVTwoDArray();
-  void insert(int r, int c, int val);
-  int access(int r, int c);
+  VVTwoDArray<T>(int r, int c, T def);
+  ~VVTwoDArray<T>();
+  void insert(int r, int c, T val);
+  T access(int r, int c);
   void remove(int r, int c);
   void print();
   int getNumRows();

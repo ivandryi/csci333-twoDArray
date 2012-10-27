@@ -1,35 +1,21 @@
 BUILD = ./build
 TEST = ./test
 LIB = ./lib
-SRCA = ./src/AQueue
-SRCLL = ./src/LLQueue
-SRCSL = ./src/SLQueue
-SRCT = ./src/TimingTests
+SRCTD = ./src/TwoDArray
+SRCVV = ./src/VVTwoDArray
+SRCSD = ./src/STwoDArray
 
 CPP = g++
 CPPFLAGS = -Wall -Wextra
 
-all: $(BUILD)/mainA $(BUILD)/mainll $(BUILD)/mainsl $(BUILD)/timing_test $(TEST)/queue_test
+all:  $(TEST)/array_test
 
-$(BUILD)/mainA: $(SRCA)/AQueue.cpp $(SRCA)/AQueue.o
-	cd $(SRCA); $(MAKE)
-
-$(BUILD)/mainll: $(SRCLL)/LLQueue.cpp $(SRCLL)/LLQueue.o
-	cd $(SRCLL); $(MAKE)
-
-$(BUILD)/mainsl: $(SRCSL)/SLQueue.cpp $(SRCSL)/SLQueue.o
-	cd $(SRCSL); $(MAKE)
-
-$(BUILD)/timing_test: $(SRCT)/timing_test.cpp $(SRCA)/AQueue.o $(SRCLL)/LLQueue.o $(SRCSL)/SLQueue.o
-	cd $(SRCT); $(MAKE)
-
-$(TEST)/queue_test: $(TEST)/Queue.cpp $(SRCA)/AQueue.o $(SRCLL)/LLQueue.o $(SRCSL)/SLQueue.o
+$(TEST)/array_test: $(TEST)/Test.cpp $(SRCTD)/TwoDArray.o $(SRCVV)/VVTwoDArray.o $(SRCSD)/STwoDArray.o
 	cd $(TEST); $(MAKE)
 
 clean:
-	cd $(SRCA); $(MAKE) clean
-	cd $(SRCLL); $(MAKE) clean
-	cd $(SRCSL); $(MAKE) clean
-	cd $(SRCT); $(MAKE) clean
+	cd $(SRCTD); $(MAKE) clean
+	cd $(SRCVV); $(MAKE) clean
+	cd $(SRCSD); $(MAKE) clean
 	cd $(TEST); $(MAKE) clean
 

@@ -1,36 +1,38 @@
 #ifndef __STWODARRAY_H__
 #define __STWODARRAY_H__
 
+template <typename T>
 class Node {
  private:
   int column;
   int row;
-  int value;
-  Node* rowNext;
-  Node* columnNext;
+  T value;
+  Node<T>* rowNext;
+  Node<T>* columnNext;
  public:
-  Node(int r, int c, int val);
-  int getValue();
+  Node<T>(int r, int c, T val);
+  T getValue();
   int getRow();
   int getColumn();
-  Node* getRowNext();
-  Node* getColumnNext();
-  void setRowNext(Node* n);
-  void setColumnNext(Node* n);
+  Node<T>* getRowNext();
+  Node<T>* getColumnNext();
+  void setRowNext(Node<T>* n);
+  void setColumnNext(Node<T>* n);
 };
 
+template <typename T>
 class STwoDArray {
  private:
-  Node** rows;
-  Node** columns;
+  Node<T>** rows;
+  Node<T>** columns;
   int numColumn;
   int numRow;
-  int defaultValue;
+  T defaultValue;
  public:
-  STwoDArray(int r, int c, int def);
-  ~STwoDArray();
-  void insert(int r, int c, int val);
-  int access(int r, int c);
+  STwoDArray<T>(int r, int c, T def);
+  ~STwoDArray<T>();
+  void insert(int r, int c, T val);
+  T access(int r, int c);
   void remove(int r, int c);
   void print();
   int getNumRows();

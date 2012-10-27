@@ -2,7 +2,8 @@
 #include <iostream>
 #include <assert.h>
 
-VVTwoDArray::VVTwoDArray(int r, int c, int def) {
+template <typename T>
+VVTwoDArray<T>::VVTwoDArray(int r, int c, T def) {
   assert (r > 0 && c > 0);
   defaultValue = def;
   row = r;
@@ -16,26 +17,31 @@ VVTwoDArray::VVTwoDArray(int r, int c, int def) {
       theArray[i][j] = defaultValue;
 }
 
-VVTwoDArray::~VVTwoDArray() {
+template <typename T>
+VVTwoDArray<T>::~VVTwoDArray() {
   std::cout << "Destructor call" << std::endl;
 }
 
-void VVTwoDArray::insert(int r, int c, int val) {
+template <typename T>
+void VVTwoDArray<T>::insert(int r, int c, T val) {
   assert (r > 0 && c > 0 && r <= row && c <= column);
   theArray[r - 1][c - 1] = val;
 }
 
-int  VVTwoDArray::access(int r, int c) {
+template <typename T>
+T  VVTwoDArray<T>::access(int r, int c) {
   assert(r > 0 && c > 0 && r <= row && c <= column);
   return theArray[r - 1][c - 1];
 }
 
-void VVTwoDArray::remove(int r, int c) {
+template <typename T>
+void VVTwoDArray<T>::remove(int r, int c) {
   assert (r > 0 && c > 0 && r <=row && c <= column);
   theArray[r - 1][c - 1] = defaultValue;
 }
 
-void VVTwoDArray::print() {
+template <typename T>
+void VVTwoDArray<T>::print() {
   for (int i = 0; i < row; i++) {
     std::cout << "\n" << std::endl;
     for (int j = 0; j < column; j++)
@@ -43,10 +49,15 @@ void VVTwoDArray::print() {
   }
 }
 
-int VVTwoDArray::getNumRows() {
+template <typename T>
+int VVTwoDArray<T>::getNumRows() {
   return row;
 }
 
-int VVTwoDArray::getNumCols() {
+template <typename T>
+int VVTwoDArray<T>::getNumCols() {
   return column;
 }
+
+template class VVTwoDArray<int>;
+template class VVTwoDArray<double>;

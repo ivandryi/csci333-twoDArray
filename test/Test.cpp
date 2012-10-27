@@ -11,11 +11,11 @@ TEST(TwoDArray, CreateDestroy) {
 }
 
 TEST(VVTwoDArray, CreateDestroy) {
-  VVTwoDArray array = VVTwoDArray(5, 3, 0);
+  VVTwoDArray<int> array = VVTwoDArray<int>(5, 3, 0);
 }
 
 TEST (STwoDArray, CreateDestroy) {
-  STwoDArray* array = new STwoDArray(3, 3, 0);
+  STwoDArray<int>* array = new STwoDArray<int>(3, 3, 0);
   delete array;
 }
 
@@ -34,7 +34,7 @@ TEST(TwoDArray, InsertAccess) {
 }
 
 TEST(VVTwoDArray, InsertAccess) {
-  VVTwoDArray array = VVTwoDArray(5, 3, 0);
+  VVTwoDArray<int> array = VVTwoDArray<int>(5, 3, 0);
   array.insert(5, 3, 45);
   //array.insert(6, 1, 67); //inserting out of the range aborts the program
   //array.insert(-6, 5, 56);
@@ -49,7 +49,7 @@ TEST(VVTwoDArray, InsertAccess) {
 }
 
 TEST(STwoDArray, InserAccess) {
-  STwoDArray* array = new STwoDArray(3, 3, 0);
+  STwoDArray<int>* array = new STwoDArray<int>(3, 3, 0);
   array->insert(3, 3, 1);
   EXPECT_EQ(1, array->access(3, 3));
   array->insert(2, 3, 2);
@@ -70,7 +70,7 @@ TEST(TwoDArray, Delete) {
 }
 
 TEST(VVTwoDArray, Delete) {
-  VVTwoDArray array = VVTwoDArray(3, 3, 0);
+  VVTwoDArray<int> array = VVTwoDArray<int>(3, 3, 0);
   array.insert(1, 1, 4);
   array.insert(1, 3, 5);
   array.remove(1, 1);
@@ -80,7 +80,7 @@ TEST(VVTwoDArray, Delete) {
 }
 
 TEST(STwoDArray, Delete) {
-  STwoDArray* array = new STwoDArray(3, 3, 0);
+  STwoDArray<int>* array = new STwoDArray<int>(3, 3, 0);
   array->insert(1, 1, 4);
   array->insert(1, 3, 5);
   array->remove(1, 1);
@@ -96,13 +96,13 @@ TEST(TwoDArray, ColRows) {
  }
 
 TEST(STwoDArray, ColRows) {
-  STwoDArray* array = new STwoDArray(3, 4, 0);
+  STwoDArray<int>* array = new STwoDArray<int>(3, 4, 0);
   EXPECT_EQ(3, array->getNumRows());
   EXPECT_EQ(4, array->getNumCols());
  }
 
 TEST(VVTwoDArray, ColRows) {
-  VVTwoDArray array = VVTwoDArray(3, 4, 0);
+  VVTwoDArray<int> array = VVTwoDArray<int>(3, 4, 0);
   EXPECT_EQ(3, array.getNumRows());
   EXPECT_EQ(4, array.getNumCols());
  }

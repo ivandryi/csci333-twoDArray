@@ -2,7 +2,8 @@
 #include <iostream>
 #include <assert.h>
 
-Node::Node(int r, int c, int val) {
+template <typename T>
+Node<T>::Node(int r, int c, T val) {
   row = r;
   column = c;
   value = val;
@@ -10,52 +11,61 @@ Node::Node(int r, int c, int val) {
   columnNext = 0;
 }
 
-int Node::getValue() {
+template <typename T>
+T Node<T>::getValue() {
   return value;
 }
 
-int Node::getRow(){
+template <typename T>
+int Node<T>::getRow(){
   return row;
 }
 
-int Node::getColumn(){
+template <typename T>
+int Node<T>::getColumn(){
   return column;
 }
 
-Node* Node::getRowNext() {
+template <typename T>
+Node<T>* Node<T>::getRowNext() {
   return rowNext;
 }
 
-Node* Node::getColumnNext() {
+template <typename T>
+Node<T>* Node<T>::getColumnNext() {
   return columnNext;
 }
 
-void Node::setRowNext(Node* n) {
+template <typename T>
+void Node<T>::setRowNext(Node<T>* n) {
   rowNext = n;
 }
 
-void Node::setColumnNext(Node* n) {
+template <typename T>
+void Node<T>::setColumnNext(Node<T>* n) {
   columnNext = n;
 }
 
-STwoDArray::STwoDArray(int r, int c, int def) {
+template <typename T>
+STwoDArray<T>::STwoDArray(int r, int c, T def) {
   assert (r > 0 && c > 0);
   numRow = r;
   numColumn = c;
   defaultValue = def;
-  rows = new Node* [numRow];
-  columns = new Node* [numColumn];
+  rows = new Node<T>* [numRow];
+  columns = new Node<T>* [numColumn];
   for (int i = 0; i < numRow; i++)
     rows[i] = 0;
   for (int j = 0; j < numColumn; j++)
     columns[j] = 0;
 }
 
-STwoDArray::~STwoDArray() {
+template <typename T>
+STwoDArray<T>::~STwoDArray() {
   for (int i = 0; i < numColumn; i++) {
-    Node* curr = columns[i];
+    Node<T>* curr = columns[i];
     while (curr != 0) {
-      Node* temp = curr->getRowNext();
+      Node<T>* temp = curr->getRowNext();
       delete curr;
       curr = temp;
     }
@@ -64,14 +74,15 @@ STwoDArray::~STwoDArray() {
   delete[] columns;
 }
 
-void STwoDArray::insert(int r, int c, int val) {
+template <typename T>
+void STwoDArray<T>::insert(int r, int c, T val) {
   assert (r > 0 && c > 0 && r <= numRow && c <= numColumn);
-  Node* newNode = new Node(r - 1, c - 1, val);
+  Node<T>* newNode = new Node<T>(r - 1, c - 1, val);
   if (rows[r - 1] == 0) {
     rows[r - 1] = newNode;
   } else {
-    Node* currRow = rows[r - 1];
-    Node* prevRow = rows[r - 1];
+    Node<T>* currRow = rows[r - 1];
+    Node<T>* prevRow = rows[r - 1];
     if (currRow->getColumn() > (c - 1)) {
       newNode->setColumnNext(currRow);
       rows[r - 1] = newNode;
@@ -96,13 +107,13 @@ void STwoDArray::insert(int r, int c, int val) {
   if (columns[c - 1] == 0){
     columns[c - 1] = newNode;
   } else {
-    Node* currCol = columns[c - 1];
-    Node* prevCol = columns[c - 1];
+    Node<T>* currCol = columns[c - 1];
+    Node<T>* prevCol = columns[c - 1];
     if (currCol->getRow() > (r - 1)) {
       newNode->setRowNext(currCol);
       columns[c - 1] = newNode;
     } else if (currCol->getRow() == (r - 1)) {
-      Node* temp = currCol;
+      Node<T>* temp = currCol;
       newNode->setRowNext(currCol->getRowNext());
       columns[c - 1] = newNode;
       delete temp;
@@ -113,7 +124,7 @@ void STwoDArray::insert(int r, int c, int val) {
       }
       if (currCol->getRowNext() != 0 && currCol->getRowNext()->getRow() == (r - 1)) {
 	currCol = currCol->getRowNext();
-	Node* temp = currCol;
+	Node<T>* temp = currCol;
 	newNode->setRowNext(currCol->getRowNext());
 	prevCol->setRowNext(newNode);
 	delete temp;
@@ -125,20 +136,22 @@ void STwoDArray::insert(int r, int c, int val) {
   }
 }
 
-int STwoDArray::access(int r, int c) {
+template <typename T>
+T STwoDArray<T>::access(int r, int c) {
   assert (r > 0 && c > 0 && r <= numRow && c <= numColumn);
-  Node* currRow = rows[r - 1];
+  Node<T>* currRow = rows[r - 1];
   while (currRow != 0 && currRow->getColumn() < (c - 1)) {
     currRow = currRow->getColumnNext();
   }
   return (currRow == 0 || currRow->getColumn() > (c - 1)) ? defaultValue : (currRow->getValue());
 }
 
-void STwoDArray::remove(int r, int c) {
+template <typename T>
+void STwoDArray<T>::remove(int r, int c) {
   assert (r > 0 && c > 0 && r <= numRow && c <= numColumn);
   assert (rows[r - 1] != 0 || columns[c - 1] != 0);
-  Node* currRow = rows[r - 1];
-  Node* currColumn = columns[c - 1];
+  Node<T>* currRow = rows[r - 1];
+  Node<T>* currColumn = columns[c - 1];
   if (currRow->getColumn() == (c - 1)) {
     rows[r - 1] = currRow->getColumnNext();
   } else {
@@ -148,22 +161,23 @@ void STwoDArray::remove(int r, int c) {
     currRow->setColumnNext(currRow->getColumnNext()->getColumnNext());
   }
   if (currColumn->getRow() == (r - 1)) {
-    Node* temp = currColumn;
+    Node<T>* temp = currColumn;
     columns[c - 1] = currColumn->getRowNext();
     delete temp;
   } else {
     while (currColumn->getRowNext() != 0 && currColumn->getRowNext()->getRow() < (r - 1)) {
       currColumn = currColumn->getRowNext();
     }
-    Node* temp = currColumn->getRowNext();
+    Node<T>* temp = currColumn->getRowNext();
     currColumn->setRowNext(temp->getRowNext());
     delete temp;
   }
 }
 
-void STwoDArray::print() {
+template <typename T>
+void STwoDArray<T>::print() {
   for (int i = 0; i < numRow; i++ ){
-    Node* currRow = rows[i];
+    Node<T>* currRow = rows[i];
     for (int j = 0; j < numColumn; j++) {
       while (currRow != 0) {
 	std::cout << currRow->getValue() << " [" << currRow->getRow() + 1 << "," << "] , ";
@@ -174,10 +188,15 @@ void STwoDArray::print() {
   }
 }
 
-int STwoDArray::getNumRows() {
+template <typename T>
+int STwoDArray<T>::getNumRows() {
   return numRow;
 }
 
-int STwoDArray::getNumCols() {
+template <typename T>
+int STwoDArray<T>::getNumCols() {
   return numColumn;
 }
+
+template class STwoDArray<int>;
+template class STwoDArray<double>;

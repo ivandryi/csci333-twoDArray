@@ -149,18 +149,19 @@ T STwoDArray<T>::access(int r, int c) {
 template <typename T>
 void STwoDArray<T>::remove(int r, int c) {
   assert (r > 0 && c > 0 && r <= numRow && c <= numColumn);
-  assert (rows[r - 1] != 0 || columns[c - 1] != 0);
-  Node<T>* currRow = rows[r - 1];
-  Node<T>* currColumn = columns[c - 1];
-  if (currRow->getColumn() == (c - 1)) {
-    rows[r - 1] = currRow->getColumnNext();
-  } else {
-    while (currRow->getColumnNext() != 0 && currRow->getColumnNext()->getColumn() < (c - 1)) {
-      currRow = currRow->getColumnNext();
+  // assert (rows[r - 1] != 0 || columns[c - 1] != 0);
+  if (rows[r - 1] != 0 || columns[c - 1] != 0) {
+    Node<T>* currRow = rows[r - 1];
+    Node<T>* currColumn = columns[c - 1];
+    if (currRow->getColumn() == (c - 1)) {
+      rows[r - 1] = currRow->getColumnNext();
+    } else {
+      while (currRow->getColumnNext() != 0 && currRow->getColumnNext()->getColumn() < (c - 1)) {
+	currRow = currRow->getColumnNext();
+      }
+      if (currRow->getColumnNext() != 0) 
+	currRow->setColumnNext(currRow->getColumnNext()->getColumnNext());
     }
-    if (currRow->getColumnNext() != 0) 
-      currRow->setColumnNext(currRow->getColumnNext()->getColumnNext());
-  }
   if (currColumn->getRow() == (r - 1)) {
     Node<T>* temp = currColumn;
     columns[c - 1] = currColumn->getRowNext();
@@ -175,6 +176,7 @@ void STwoDArray<T>::remove(int r, int c) {
     delete temp;
     }
   }
+ }
 }
 
 template <typename T>
@@ -203,3 +205,4 @@ int STwoDArray<T>::getNumCols() {
 
 template class STwoDArray<int>;
 template class STwoDArray<double>;
+template class STwoDArray<std::string>;

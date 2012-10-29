@@ -61,3 +61,4 @@ int VVTwoDArray<T>::getNumCols() {
 
 template class VVTwoDArray<int>;
 template class VVTwoDArray<double>;
+template class VVTwoDArray<std::string>;

@@ -158,7 +158,8 @@ void STwoDArray<T>::remove(int r, int c) {
     while (currRow->getColumnNext() != 0 && currRow->getColumnNext()->getColumn() < (c - 1)) {
       currRow = currRow->getColumnNext();
     }
-    currRow->setColumnNext(currRow->getColumnNext()->getColumnNext());
+    if (currRow->getColumnNext() != 0) 
+      currRow->setColumnNext(currRow->getColumnNext()->getColumnNext());
   }
   if (currColumn->getRow() == (r - 1)) {
     Node<T>* temp = currColumn;
@@ -168,9 +169,11 @@ void STwoDArray<T>::remove(int r, int c) {
     while (currColumn->getRowNext() != 0 && currColumn->getRowNext()->getRow() < (r - 1)) {
       currColumn = currColumn->getRowNext();
     }
+    if (currColumn->getRowNext() != 0) {
     Node<T>* temp = currColumn->getRowNext();
     currColumn->setRowNext(temp->getRowNext());
     delete temp;
+    }
   }
 }
 

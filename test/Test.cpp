@@ -85,6 +85,7 @@ TEST(STwoDArray, Delete) {
   array->insert(1, 3, 5);
   array->remove(1, 1);
   array->remove(1, 3);
+  array->remove(1, 1,);
   EXPECT_EQ(0, array->access(1, 1));
   EXPECT_EQ(0, array->access(1, 3));
 }
